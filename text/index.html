@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Текстовые версии</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080707;
+  --bg-soft: #12100f;
+  --line: #3d322a;
+  --text: #f8f0e4;
+  --muted: #c7b095;
+  --teal: #38d7c5;
+  --amber: #f6a54b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 26px 18px;
+}
+
+.shell {
+  width: min(800px, 100%);
+}
+
+h1 { font-family: "Unbounded", "Manrope", sans-serif; margin: 0 0 20px; font-size: 28px; }
+
+.list {
+  display: grid;
+  gap: 12px;
+}
+
+.item {
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(31,24,20,0.92), rgba(20,16,13,0.96));
+  padding: 14px;
+}
+
+.item a {
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.item a:hover {
+  color: var(--amber);
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <h1>Текстовые версии</h1>
+    <div class="list">
+      <div class="item">
+        <a href="./reading/part1/">Часть 1 — Конспект</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
