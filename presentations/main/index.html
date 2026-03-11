@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SFA Call AI Agent</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/theme/black.min.css" id="theme">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/highlight/monokai.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #090707;
+  --card: #151110;
+  --text: #f6efe4;
+  --muted: #c4ae94;
+  --line: #4a3c32;
+  --teal: #37d6c4;
+  --amber: #f6a44a;
+  --rose: #f6757f;
+  --green: #53d36f;
+  --red: #ff6a6a;
+}
+
+html, body { background: var(--bg); }
+
+.reveal {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 16%, rgba(55, 214, 196, 0.12), transparent 36%),
+    radial-gradient(circle at 88% 8%, rgba(246, 164, 74, 0.18), transparent 32%),
+    radial-gradient(circle at 74% 84%, rgba(246, 117, 127, 0.12), transparent 36%),
+    linear-gradient(145deg, #0a0808 0%, #110f0d 50%, #0a0807 100%);
+}
+
+.reveal .slides { text-align: left; }
+
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: "Unbounded", "Manrope", sans-serif;
+  text-transform: none;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 0.34em;
+}
+
+.reveal h1 { font-size: 2.28em; color: #fff7ea; }
+.reveal h2 { font-size: 1.28em; color: var(--teal); }
+.reveal h3 { font-size: 0.92em; color: #ffe9c8; }
+
+.reveal p, .reveal li { font-size: 0.62em; color: var(--muted); line-height: 1.52; }
+.reveal strong { color: #fff8ee; }
+.reveal em { color: var(--teal); font-style: normal; }
+
+.reveal pre {
+  width: 100%;
+  box-shadow: none;
+  margin: 0.3em 0;
+}
+
+.reveal pre code {
+  max-height: 440px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #0f0c0b;
+  padding: 0.9em;
+  font-size: 0.56em;
+  line-height: 1.48;
+}
+
+.reveal blockquote {
+  width: 100%;
+  margin: 0.35em 0;
+  padding: 0.45em 0.7em;
+  border-left: 4px solid var(--amber);
+  border-radius: 0 10px 10px 0;
+  background: rgba(246, 164, 74, 0.08);
+}
+
+.reveal blockquote p { margin: 0; color: #e7d8c6; }
+
+.slide-shell, .chapter-shell {
+  min-height: 620px;
+  border: 1px solid rgba(255, 241, 224, 0.14);
+  border-radius: 22px;
+  padding: 22px 26px;
+  background: linear-gradient(160deg, rgba(32, 24, 20, 0.88), rgba(17, 13, 11, 0.92));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 24px 48px rgba(0, 0, 0, 0.38);
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-shell::before, .chapter-shell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal), var(--amber), transparent);
+  opacity: 0.7;
+}
+
+.chapter-shell {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(55, 214, 196, 0.4);
+  font-size: 0.42em;
+  letter-spacing: 0.08em;
+  color: #d8f9f3;
+  text-transform: uppercase;
+}
+
+.kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 6px rgba(55, 214, 196, 0.2);
+}
+
+.hero-title { font-size: 3em; margin: 0 0 0.24em; }
+.hero-sub { font-size: 1.08em; color: var(--teal); margin: 0 0 0.32em; }
+
+.meta-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 0.48em;
+  color: #e6d4bd;
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+}
+
+.section-title { margin-bottom: 0.74em; }
+
+.cards { display: grid; gap: 10px; }
+.cards.c2 { grid-template-columns: 1fr 1fr; }
+.cards.c3 { grid-template-columns: 1fr 1fr 1fr; }
+
+.card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 3px solid var(--teal);
+  background: linear-gradient(145deg, rgba(36, 28, 23, 0.88), rgba(24, 18, 15, 0.95));
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.card h3 { margin: 0 0 0.34em; font-size: 0.78em; }
+.card p, .card li { font-size: 0.56em; }
+.card ul { margin: 0.2em 0 0; padding-left: 1.1em; }
+
+.card.teal { border-top-color: var(--teal); }
+.card.amber { border-top-color: var(--amber); }
+.card.rose { border-top-color: var(--rose); }
+.card.green { border-top-color: var(--green); }
+.card.red { border-top-color: var(--red); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.note { font-size: 0.5em; color: #9f8d77; }
+
+.logo { position: absolute; top: 16px; right: 16px; height: 32px; opacity: 0.8; }
+
+.image-slide img {
+  max-width: 100%;
+  max-height: 480px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.image-slide .large { max-height: 520px; }
+
+.center-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+}
+
+.center-image img {
+  max-width: 90%;
+  max-height: 520px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.stat {
+  text-align: center;
+  padding: 16px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(36, 28, 23, 0.88), rgba(24, 18, 15, 0.95));
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.stat-number {
+  font-size: 2.5em;
+  font-weight: 700;
+  color: var(--teal);
+  font-family: "Unbounded", sans-serif;
+}
+
+.stat-label {
+  font-size: 0.5em;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+@media (max-width: 1100px) {
+  .cards.c2, .cards.c3, .grid-2 { grid-template-columns: 1fr; }
+  .slide-shell, .chapter-shell { min-height: auto; }
+  .stats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- Слайд 1: Титульный -->
+<section>
+  <div class="chapter-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <span class="kicker">SFA Call</span>
+    <h1 class="hero-title">ОБЩИЙ СЛАЙД ЧЕРНОВИК</h1>
+    <p class="hero-sub">Общий слайд про подход к ИИ в SFA Call</p>
+    <div class="meta-row">
+      <span class="pill">Как взаимодействуем с коллегами из Взыскания</span>
+    </div>
+  </div>
+</section>
+
+<!-- Слайд 2: Ассистент QA -->
+<section>
+  <div class="chapter-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <span class="kicker">AI Agent</span>
+    <h1 class="hero-title">Ассистент QA для тест-стендов</h1>
+    <p class="hero-sub">Автоматический анализ ошибок</p>
+  </div>
+</section>
+
+<!-- Слайд 3: Проблема -->
+<section>
+  <div class="slide-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <h2 class="section-title">Проблема</h2>
+    <div class="card teal fragment">
+      <ul>
+        <li>Тестировщики сталкиваются с непонятными ошибками на UI и пингуют разработчиков починить это.</li>
+        <li>Уходит много времени, так как с ходу непонятно где и что упало в распределенной системе.</li>
+      </ul>
+    </div>
+    <blockquote class="fragment">
+      <p><strong>Задача агента:</strong> выяснить что сломалось, дать анализ ошибки, тем самым ускорив исследования проблем на тест-стендах.</p>
+    </blockquote>
+  </div>
+</section>
+
+<!-- Слайд 4: Проблема - статистика -->
+<section>
+  <div class="slide-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <h2 class="section-title">Проблема</h2>
+    <div class="center-image">
+      <img src="../../assets/problem-schema.png" alt="Схема проблемы">
+    </div>
+    <p class="note">В среднем за 3 месяца тестировщики сталкиваются с ~120 ошибками, затрачивая около 54 минут на каждую.</p>
+  </div>
+</section>
+
+<!-- Слайд 5: Решение -->
+<section>
+  <div class="slide-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <h2 class="section-title">Решение</h2>
+    <div class="cards c2">
+      <div class="card teal fragment">
+        <h3>Процесс</h3>
+        <ul>
+          <li>Тестировщик воспроизводит ошибку</li>
+          <li>Данные об ошибке поступают ИИ агенту</li>
+        </ul>
+      </div>
+      <div class="card amber fragment">
+        <h3>Результат</h3>
+        <ul>
+          <li>Агент по MCP ходит в k8s и jaeger за информацией</li>
+          <li>Собирает логи и выдает анализ корня проблем</li>
+          <li>Снижает необходимость копаться в инфраструктуре</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Слайд 6: Архитектура с GIF -->
+<section>
+  <div class="slide-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <h2 class="section-title">Что в итоге получилось?</h2>
+    <div class="center-image">
+      <img src="../../assets/architecture.gif" alt="Архитектура системы" style="max-height: 450px;">
+    </div>
+    <p class="note">Анализ ошибки в цикле, принятие решений о вызове инструментов MCP</p>
+  </div>
+</section>
+
+<!-- Слайд 7: Дашборд -->
+<section>
+  <div class="slide-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <h2 class="section-title">Дашборд собранных ошибок</h2>
+    <div class="center-image">
+      <img src="../../assets/dashboard.png" alt="Дашборд ошибок" style="max-height: 480px;">
+    </div>
+  </div>
+</section>
+
+<!-- Слайд 8: Информация об ошибке -->
+<section>
+  <div class="slide-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <h2 class="section-title">Информация об ошибке</h2>
+    <div class="center-image">
+      <img src="../../assets/error-info.png" alt="Информация об ошибке" style="max-height: 480px;">
+    </div>
+  </div>
+</section>
+
+<!-- Слайд 9: Результаты -->
+<section>
+  <div class="slide-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <h2 class="section-title">Результаты пилота за 3 месяца</h2>
+    <div class="stats">
+      <div class="stat fragment">
+        <div class="stat-number">120</div>
+        <div class="stat-label">Проанализировано ошибок</div>
+      </div>
+      <div class="stat fragment">
+        <div class="stat-number">20</div>
+        <div class="stat-label">из 120 ошибок решены с помощью ИИ (16%)</div>
+      </div>
+      <div class="stat fragment">
+        <div class="stat-number">18ч</div>
+        <div class="stat-label">Сэкономлено (~2,3 рабочих дня)</div>
+      </div>
+    </div>
+    <p class="note fragment">При общих затратах в 108 часов или ~13,5 рабочих дней</p>
+  </div>
+</section>
+
+<!-- Слайд 10: AI проверка документа -->
+<section>
+  <div class="chapter-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <span class="kicker">Next</span>
+    <h1 class="hero-title">АI проверка структуры документа для С.А.</h1>
+    <p class="hero-sub">Следующий кейс использования</p>
+  </div>
+</section>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/highlight/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/notes/notes.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: "c/t",
+  width: 1360,
+  height: 768,
+  margin: 0.05,
+  transition: "slide",
+  backgroundTransition: "fade",
+  transitionSpeed: "fast",
+  plugins: [RevealHighlight, RevealNotes]
+});
+</script>
+</body>
+</html>
