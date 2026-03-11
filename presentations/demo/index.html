@@ -522,9 +522,144 @@ tr:last-child td { border-bottom: none; }
   .comparison-arrow { transform: rotate(90deg); }
   .image-bullets { grid-template-columns: 1fr; }
 }
+
+/* Навигационные контролы */
+.nav-controls {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+  font-family: "Manrope", sans-serif;
+  transition: opacity 0.3s ease;
+}
+
+.nav-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(14, 11, 10, 0.9);
+  color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.nav-btn:hover {
+  background: rgba(55, 214, 196, 0.15);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.nav-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.nav-help {
+  position: relative;
+}
+
+.nav-help .help-tooltip {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(14, 11, 10, 0.95);
+  backdrop-filter: blur(12px);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  font-size: 13px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.nav-help:hover .help-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.help-tooltip h4 {
+  margin: 0 0 8px;
+  color: var(--teal);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.help-tooltip ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.help-tooltip li {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 4px 0;
+  color: var(--muted);
+}
+
+.help-tooltip li span:first-child {
+  color: var(--text);
+}
+
+.help-tooltip kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--amber);
+}
 </style>
 </head>
 <body>
+
+<!-- Навигационные контролы -->
+<div class="nav-controls" id="navControls">
+  <a href="../../" class="nav-btn" title="К списку презентаций">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+  </a>
+  <div class="nav-btn nav-help" title="Горячие клавиши">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/>
+    </svg>
+    <div class="help-tooltip">
+      <h4>Горячие клавиши</h4>
+      <ul>
+        <li><span>Полноэкранный режим</span> <kbd>F</kbd></li>
+        <li><span>Следующий слайд</span> <kbd>Space</kbd> / <kbd>→</kbd></li>
+        <li><span>Предыдущий слайд</span> <kbd>←</kbd></li>
+        <li><span>Обзор слайдов</span> <kbd>O</kbd></li>
+        <li><span>Заметки докладчика</span> <kbd>S</kbd></li>
+        <li><span>Выход</span> <kbd>Esc</kbd></li>
+      </ul>
+    </div>
+  </div>
+</div>
 <div class="reveal">
 <div class="slides">
 
@@ -923,6 +1058,19 @@ console.log(`Итого: ${total}₽`);</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/highlight/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/notes/notes.min.js"></script>
 <script>
+/* Скрытие контролов в полноэкранном режиме */
+document.addEventListener("fullscreenchange", function() {
+  var navControls = document.getElementById("navControls");
+  if (navControls) {
+    if (document.fullscreenElement) {
+      navControls.classList.add("hidden");
+    } else {
+      navControls.classList.remove("hidden");
+    }
+  }
+});
+
+
 Reveal.initialize({
   hash: true,
   slideNumber: "c/t",
