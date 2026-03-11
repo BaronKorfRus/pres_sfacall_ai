@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — Все варианты слайдов</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/theme/black.min.css" id="theme">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/highlight/monokai.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #090707;
+  --card: #151110;
+  --text: #f6efe4;
+  --muted: #c4ae94;
+  --line: #4a3c32;
+  --teal: #37d6c4;
+  --amber: #f6a44a;
+  --rose: #f6757f;
+  --green: #53d36f;
+  --red: #ff6a6a;
+  --purple: #a37df6;
+}
+
+html, body { background: var(--bg); }
+
+.reveal {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 16%, rgba(55, 214, 196, 0.12), transparent 36%),
+    radial-gradient(circle at 88% 8%, rgba(246, 164, 74, 0.18), transparent 32%),
+    radial-gradient(circle at 74% 84%, rgba(246, 117, 127, 0.12), transparent 36%),
+    linear-gradient(145deg, #0a0808 0%, #110f0d 50%, #0a0807 100%);
+}
+
+.reveal .slides { text-align: left; }
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  font-family: "Unbounded", "Manrope", sans-serif;
+  text-transform: none;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 0.34em;
+}
+
+.reveal h1 { font-size: 2.28em; color: #fff7ea; }
+.reveal h2 { font-size: 1.28em; color: var(--teal); }
+.reveal h3 { font-size: 0.92em; color: #ffe9c8; }
+.reveal h4 { font-size: 0.72em; color: var(--muted); }
+
+.reveal p, .reveal li { font-size: 0.62em; color: var(--muted); line-height: 1.52; }
+.reveal strong { color: #fff8ee; }
+.reveal em { color: var(--teal); font-style: normal; }
+
+.reveal pre {
+  width: 100%;
+  box-shadow: none;
+  margin: 0.3em 0;
+}
+
+.reveal pre code {
+  max-height: 440px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #0f0c0b;
+  padding: 0.9em;
+  font-size: 0.56em;
+  line-height: 1.48;
+}
+
+.reveal blockquote {
+  width: 100%;
+  margin: 0.35em 0;
+  padding: 0.45em 0.7em;
+  border-left: 4px solid var(--amber);
+  border-radius: 0 10px 10px 0;
+  background: rgba(246, 164, 74, 0.08);
+}
+
+.reveal blockquote p { margin: 0; color: #e7d8c6; }
+
+.slide-shell, .chapter-shell {
+  min-height: 620px;
+  border: 1px solid rgba(255, 241, 224, 0.14);
+  border-radius: 22px;
+  padding: 22px 26px;
+  background: linear-gradient(160deg, rgba(32, 24, 20, 0.88), rgba(17, 13, 11, 0.92));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 24px 48px rgba(0, 0, 0, 0.38);
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-shell::before, .chapter-shell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal), var(--amber), transparent);
+  opacity: 0.7;
+}
+
+.chapter-shell {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(55, 214, 196, 0.4);
+  font-size: 0.42em;
+  letter-spacing: 0.08em;
+  color: #d8f9f3;
+  text-transform: uppercase;
+}
+
+.kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 6px rgba(55, 214, 196, 0.2);
+}
+
+.hero-title { font-size: 3em; margin: 0 0 0.24em; }
+.hero-sub { font-size: 1.08em; color: var(--teal); margin: 0 0 0.32em; }
+
+.meta-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 0.48em;
+  color: #e6d4bd;
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+}
+
+.section-title { margin-bottom: 0.74em; }
+
+.cards { display: grid; gap: 10px; }
+.cards.c2 { grid-template-columns: 1fr 1fr; }
+.cards.c3 { grid-template-columns: 1fr 1fr 1fr; }
+.cards.c4 { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 3px solid var(--teal);
+  background: linear-gradient(145deg, rgba(36, 28, 23, 0.88), rgba(24, 18, 15, 0.95));
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.card h3 { margin: 0 0 0.34em; font-size: 0.78em; }
+.card p, .card li { font-size: 0.56em; }
+.card ul { margin: 0.2em 0 0; padding-left: 1.1em; }
+
+.card.teal { border-top-color: var(--teal); }
+.card.amber { border-top-color: var(--amber); }
+.card.rose { border-top-color: var(--rose); }
+.card.green { border-top-color: var(--green); }
+.card.red { border-top-color: var(--red); }
+.card.purple { border-top-color: var(--purple); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+.note { font-size: 0.5em; color: #9f8d77; }
+
+.logo { position: absolute; top: 16px; right: 16px; height: 32px; opacity: 0.8; }
+
+.center-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+}
+
+.center-image img {
+  max-width: 90%;
+  max-height: 520px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.stat {
+  text-align: center;
+  padding: 16px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(36, 28, 23, 0.88), rgba(24, 18, 15, 0.95));
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.stat-number {
+  font-size: 2.5em;
+  font-weight: 700;
+  color: var(--teal);
+  font-family: "Unbounded", sans-serif;
+}
+
+.stat-label {
+  font-size: 0.5em;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* Process Flow */
+.process-flow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.process-step {
+  text-align: center;
+  padding: 12px 8px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(36, 28, 23, 0.88), rgba(24, 18, 15, 0.95));
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.process-step h4 {
+  margin: 0 0 4px;
+  font-size: 0.58em;
+  color: var(--teal);
+}
+
+.process-step p {
+  margin: 0;
+  font-size: 0.48em;
+  color: var(--muted);
+}
+
+.process-step.active {
+  border-color: var(--teal);
+  box-shadow: 0 0 12px rgba(55, 214, 196, 0.2);
+}
+
+/* Timeline */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.timeline-item {
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+}
+
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 6px solid var(--muted);
+}
+
+.timeline-item:last-child::after { display: none; }
+
+.timeline-item h4 {
+  margin: 0 0 6px;
+  font-size: 0.56em;
+  color: var(--amber);
+}
+
+.timeline-item p {
+  margin: 0;
+  font-size: 0.48em;
+}
+
+/* Comparison */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.comparison-item {
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.comparison-item.before { border-left: 3px solid var(--red); }
+.comparison-item.after { border-left: 3px solid var(--green); }
+
+.comparison-arrow {
+  font-size: 2em;
+  color: var(--amber);
+}
+
+/* List styles */
+.feature-list {
+  display: grid;
+  gap: 8px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.feature-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5em;
+  background: rgba(55, 214, 196, 0.15);
+  color: var(--teal);
+  flex-shrink: 0;
+}
+
+.feature-content h4 {
+  margin: 0 0 4px;
+  font-size: 0.6em;
+  color: var(--text);
+}
+
+.feature-content p {
+  margin: 0;
+  font-size: 0.5em;
+}
+
+/* Table */
+.table-wrap {
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.54em;
+}
+
+th, td {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 12px;
+  text-align: left;
+}
+
+th {
+  background: rgba(255,255,255,0.04);
+  color: var(--teal);
+  font-weight: 600;
+}
+
+tr:last-child td { border-bottom: none; }
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.42em;
+  font-weight: 600;
+}
+
+.badge.teal { background: rgba(55, 214, 196, 0.15); color: var(--teal); }
+.badge.amber { background: rgba(246, 164, 74, 0.15); color: var(--amber); }
+.badge.rose { background: rgba(246, 117, 127, 0.15); color: var(--rose); }
+.badge.green { background: rgba(83, 211, 111, 0.15); color: var(--green); }
+
+/* Progress */
+.progress-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--teal), var(--amber));
+}
+
+/* Highlight box */
+.highlight-box {
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(55, 214, 196, 0.1), rgba(246, 164, 74, 0.1));
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Avatar */
+.avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--amber));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6em;
+  font-weight: 700;
+  color: #fff;
+}
+
+.avatar-info h4 { margin: 0 0 2px; font-size: 0.62em; color: var(--text); }
+.avatar-info p { margin: 0; font-size: 0.5em; }
+
+@media (max-width: 1100px) {
+  .cards.c2, .cards.c3, .cards.c4, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .slide-shell, .chapter-shell { min-height: auto; }
+  .stats { grid-template-columns: 1fr; }
+  .process-flow, .timeline { grid-template-columns: 1fr; }
+  .comparison { grid-template-columns: 1fr; }
+  .comparison-arrow { transform: rotate(90deg); }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ========== ТИП 1: Главный слайд ========== -->
+<section>
+  <div class="chapter-shell">
+    <span class="kicker">Тип 1</span>
+    <h1 class="hero-title">Главный слайд</h1>
+    <p class="hero-sub">Для разделов и важных тем</p>
+    <div class="meta-row">
+      <span class="pill">Метка 1</span>
+      <span class="pill">Метка 2</span>
+      <span class="pill">Метка 3</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 2: Карточки 2 колонки ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Карточки 2 колонки</h2>
+    <div class="cards c2">
+      <div class="card teal fragment">
+        <h3>Карточка Teal</h3>
+        <ul>
+          <li>Пункт первый</li>
+          <li>Пункт второй</li>
+          <li>Пункт третий</li>
+        </ul>
+      </div>
+      <div class="card amber fragment">
+        <h3>Карточка Amber</h3>
+        <ul>
+          <li>Пункт первый</li>
+          <li>Пункт второй</li>
+          <li>Пункт третий</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Примечание под карточками</p>
+  </div>
+</section>
+
+<!-- ========== ТИП 3: Карточки 3 колонки ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Карточки 3 колонки</h2>
+    <div class="cards c3">
+      <div class="card teal fragment"><h3>Teal</h3><p>Описание карточки</p></div>
+      <div class="card amber fragment"><h3>Amber</h3><p>Описание карточки</p></div>
+      <div class="card rose fragment"><h3>Rose</h3><p>Описание карточки</p></div>
+      <div class="card green fragment"><h3>Green</h3><p>Описание карточки</p></div>
+      <div class="card red fragment"><h3>Red</h3><p>Описание карточки</p></div>
+      <div class="card purple fragment"><h3>Purple</h3><p>Описание карточки</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 4: Карточки 4 колонки ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Карточки 4 колонки</h2>
+    <div class="cards c4">
+      <div class="card teal fragment"><h3>Шаг 1</h3><p>Первый этап</p></div>
+      <div class="card amber fragment"><h3>Шаг 2</h3><p>Второй этап</p></div>
+      <div class="card rose fragment"><h3>Шаг 3</h3><p>Третий этап</p></div>
+      <div class="card green fragment"><h3>Шаг 4</h3><p>Четвёртый этап</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 5: Статистика ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Статистика</h2>
+    <div class="stats">
+      <div class="stat fragment">
+        <div class="stat-number">120</div>
+        <div class="stat-label">Метрика один</div>
+      </div>
+      <div class="stat fragment">
+        <div class="stat-number">85%</div>
+        <div class="stat-label">Метрика два</div>
+      </div>
+      <div class="stat fragment">
+        <div class="stat-number">18ч</div>
+        <div class="stat-label">Метрика три</div>
+      </div>
+    </div>
+    <p class="note fragment">Примечание к статистике</p>
+  </div>
+</section>
+
+<!-- ========== ТИП 6: Цитата ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Цитата</h2>
+    <blockquote class="fragment">
+      <p><strong>Важная мысль:</strong> Цитаты отлично подходят для выделения ключевых идей и запоминающихся фраз.</p>
+    </blockquote>
+    <div class="card teal fragment">
+      <h3>Контекст</h3>
+      <p>Дополнительное пояснение к цитате. Можно добавить карточку с деталями.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 7: Код ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Пример кода</h2>
+<pre><code class="language-javascript">// Пример функции
+function calculateTotal(items) {
+  return items.reduce((sum, item) => {
+    return sum + item.price * item.quantity;
+  }, 0);
+}
+
+const total = calculateTotal(cart);
+console.log(`Итого: ${total}₽`);</code></pre>
+    <p class="note">Комментарий к коду: пример подсчёта суммы корзины</p>
+  </div>
+</section>
+
+<!-- ========== ТИП 8: Сравнение ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Сравнение До/После</h2>
+    <div class="comparison">
+      <div class="comparison-item before fragment">
+        <h3>До</h3>
+        <ul>
+          <li>Ручной процесс</li>
+          <li>Много ошибок</li>
+          <li>Долго</li>
+        </ul>
+      </div>
+      <div class="comparison-arrow fragment">→</div>
+      <div class="comparison-item after fragment">
+        <h3>После</h3>
+        <ul>
+          <li>Автоматизация</li>
+          <li>Минимум ошибок</li>
+          <li>Быстро</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 9: Процесс ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Процесс (шаги)</h2>
+    <div class="process-flow">
+      <div class="process-step fragment"><h4>1. Идея</h4><p>Формируем</p></div>
+      <div class="process-step fragment"><h4>2. План</h4><p>Структурируем</p></div>
+      <div class="process-step active fragment"><h4>3. Работа</h4><p>Выполняем</p></div>
+      <div class="process-step fragment"><h4>4. Проверка</h4><p>Тестируем</p></div>
+      <div class="process-step fragment"><h4>5. Результат</h4><p>Доставляем</p></div>
+    </div>
+    <p class="note fragment">Цикл работы над задачей</p>
+  </div>
+</section>
+
+<!-- ========== ТИП 10: Timeline ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Timeline (история)</h2>
+    <div class="timeline">
+      <div class="timeline-item fragment">
+        <h4>Январь</h4>
+        <p>Старт проекта</p>
+      </div>
+      <div class="timeline-item fragment">
+        <h4>Март</h4>
+        <p>Первый релиз</p>
+      </div>
+      <div class="timeline-item fragment">
+        <h4>Июнь</h4>
+        <p>Масштабирование</p>
+      </div>
+      <div class="timeline-item fragment">
+        <h4>Сентябрь</h4>
+        <p>Успех</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 11: Таблица ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Таблица</h2>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Столбец 1</th><th>Столбец 2</th><th>Столбец 3</th></tr>
+        <tr><td>Данные 1</td><td>Значение 1</td><td>Результат 1</td></tr>
+        <tr><td>Данные 2</td><td>Значение 2</td><td>Результат 2</td></tr>
+        <tr><td>Данные 3</td><td>Значение 3</td><td>Результат 3</td></tr>
+      </table>
+    </div>
+    <p class="note">Примечание к таблице</p>
+  </div>
+</section>
+
+<!-- ========== ТИП 12: Список с иконками ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Список с иконками</h2>
+    <div class="feature-list">
+      <div class="feature-item fragment">
+        <div class="feature-icon">1</div>
+        <div class="feature-content">
+          <h4>Первая фича</h4>
+          <p>Описание первой фичи</p>
+        </div>
+      </div>
+      <div class="feature-item fragment">
+        <div class="feature-icon">2</div>
+        <div class="feature-content">
+          <h4>Вторая фича</h4>
+          <p>Описание второй фичи</p>
+        </div>
+      </div>
+      <div class="feature-item fragment">
+        <div class="feature-icon">3</div>
+        <div class="feature-content">
+          <h4>Третья фича</h4>
+          <p>Описание третьей фичи</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 13: Бейджи и прогресс ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Бейджи и прогресс</h2>
+    <div class="card teal">
+      <h3>Статус проекта</h3>
+      <p>
+        <span class="badge teal">Active</span>
+        <span class="badge amber">In Progress</span>
+        <span class="badge green">80%</span>
+      </p>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 80%"></div>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top: 12px">
+      <div class="card amber fragment">
+        <h3>Задачи</h3>
+        <p><span class="badge rose">12 открытых</span> <span class="badge green">48 закрытых</span></p>
+      </div>
+      <div class="card rose fragment">
+        <h3>Сроки</h3>
+        <p><span class="badge amber">До конца спринта 5 дней</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 14: Аватар ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Команда</h2>
+    <div class="grid-3">
+      <div class="card teal fragment">
+        <div class="avatar-row">
+          <div class="avatar">АА</div>
+          <div class="avatar-info">
+            <h4>Алексей Алексеев</h4>
+            <p>Team Lead</p>
+          </div>
+        </div>
+      </div>
+      <div class="card amber fragment">
+        <div class="avatar-row">
+          <div class="avatar">ББ</div>
+          <div class="avatar-info">
+            <h4>Борис Борисов</h4>
+            <p>Developer</p>
+          </div>
+        </div>
+      </div>
+      <div class="card rose fragment">
+        <div class="avatar-row">
+          <div class="avatar">ВВ</div>
+          <div class="avatar-info">
+            <h4>Виктор Викторов</h4>
+            <p>QA Engineer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 15: Highlight Box ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Важное выделение</h2>
+    <div class="highlight-box fragment">
+      <h3>Ключевой инсайт</h3>
+      <p>Этот блок используется для выделения самой важной информации на слайде. Градиентный фон привлекает внимание.</p>
+    </div>
+    <div class="grid-2" style="margin-top: 14px">
+      <div class="card teal fragment"><h3>Деталь 1</h3><p>Пояснение</p></div>
+      <div class="card amber fragment"><h3>Деталь 2</h3><p>Пояснение</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 16: Изображение ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Изображение</h2>
+    <div class="center-image">
+      <img src="https://placehold.co/800x400/1a1614/f6efe4?text=Изображение+или+схема" alt="Placeholder">
+    </div>
+    <p class="note">Подпись к изображению</p>
+  </div>
+</section>
+
+<!-- ========== ТИП 17: Комбинированный ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Комбинированный слайд</h2>
+    <div class="grid-2">
+      <div>
+        <div class="card teal fragment">
+          <h3>Левая колонка</h3>
+          <ul>
+            <li>Пункт 1</li>
+            <li>Пункт 2</li>
+            <li>Пункт 3</li>
+          </ul>
+        </div>
+        <blockquote class="fragment"><p>Цитата в левой части</p></blockquote>
+      </div>
+      <div>
+        <div class="card amber fragment">
+          <h3>Правая колонка</h3>
+          <ul>
+            <li>Пункт A</li>
+            <li>Пункт B</li>
+            <li>Пункт C</li>
+          </ul>
+        </div>
+        <div class="stat fragment" style="margin-top: 10px">
+          <div class="stat-number">42</div>
+          <div class="stat-label">Метрика</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== КОНЕЦ: Финальный слайд ========== -->
+<section>
+  <div class="chapter-shell">
+    <span class="kicker">Конец</span>
+    <h1 class="hero-title">Спасибо!</h1>
+    <p class="hero-sub">Вопросы?</p>
+    <div class="meta-row">
+      <a class="pill" href="../../">На главную</a>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/highlight/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/notes/notes.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: "c/t",
+  width: 1360,
+  height: 768,
+  margin: 0.05,
+  transition: "slide",
+  backgroundTransition: "fade",
+  transitionSpeed: "fast",
+  plugins: [RevealHighlight, RevealNotes]
+});
+</script>
+</body>
+</html>
