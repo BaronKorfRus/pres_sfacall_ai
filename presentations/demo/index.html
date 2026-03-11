@@ -18,7 +18,7 @@
   --muted: #c4ae94;
   --line: #4a3c32;
   --teal: #37d6c4;
-  --amber: #f6a44a;
+  --amber: #f6a44b;
   --rose: #f6757f;
   --green: #53d36f;
   --red: #ff6a6a;
@@ -458,6 +458,61 @@ tr:last-child td { border-bottom: none; }
 .avatar-info h4 { margin: 0 0 2px; font-size: 0.62em; color: var(--text); }
 .avatar-info p { margin: 0; font-size: 0.5em; }
 
+/* Image + Bullets */
+.image-bullets {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.image-bullets .image-side {
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+
+.image-bullets .image-side img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-bullets .text-side h3 {
+  margin: 0 0 12px;
+  font-size: 0.85em;
+  color: var(--text);
+}
+
+.image-bullets .bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.image-bullets .bullet-list li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 12px;
+  font-size: 0.58em;
+  line-height: 1.5;
+}
+
+.image-bullets .bullet-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.image-bullets .bullet-list li:nth-child(2)::before { background: var(--amber); }
+.image-bullets .bullet-list li:nth-child(3)::before { background: var(--rose); }
+
 @media (max-width: 1100px) {
   .cards.c2, .cards.c3, .cards.c4, .grid-2, .grid-3 { grid-template-columns: 1fr; }
   .slide-shell, .chapter-shell { min-height: auto; }
@@ -465,6 +520,7 @@ tr:last-child td { border-bottom: none; }
   .process-flow, .timeline { grid-template-columns: 1fr; }
   .comparison { grid-template-columns: 1fr; }
   .comparison-arrow { transform: rotate(90deg); }
+  .image-bullets { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -795,7 +851,27 @@ console.log(`Итого: ${total}₽`);</code></pre>
   </div>
 </section>
 
-<!-- ========== ТИП 17: Комбинированный ========== -->
+<!-- ========== ТИП 17: Изображение + 3 буллета ========== -->
+<section>
+  <div class="slide-shell">
+    <h2 class="section-title">Изображение + 3 тезиса</h2>
+    <div class="image-bullets">
+      <div class="image-side fragment">
+        <img src="https://placehold.co/500x350/1a1614/f6efe4?text=Изображение" alt="Изображение">
+      </div>
+      <div class="text-side">
+        <h3 class="fragment">Ключевые тезисы</h3>
+        <ul class="bullet-list">
+          <li class="fragment"><strong>Первый тезис.</strong> Краткое описание первого ключевого момента.</li>
+          <li class="fragment"><strong>Второй тезис.</strong> Краткое описание второго ключевого момента.</li>
+          <li class="fragment"><strong>Третий тезис.</strong> Краткое описание третьего ключевого момента.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТИП 18: Комбинированный ========== -->
 <section>
   <div class="slide-shell">
     <h2 class="section-title">Комбинированный слайд</h2>
