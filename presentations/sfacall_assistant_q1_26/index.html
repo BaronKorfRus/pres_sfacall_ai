@@ -183,15 +183,6 @@ html, body { background: var(--bg); }
 
 .logo { position: absolute; top: 16px; right: 16px; height: 32px; opacity: 0.8; }
 
-.image-slide img {
-  max-width: 100%;
-  max-height: 480px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.12);
-}
-
-.image-slide .large { max-height: 520px; }
-
 .center-image {
   display: flex;
   justify-content: center;
@@ -306,6 +297,34 @@ html, body { background: var(--bg); }
   color: var(--muted);
 }
 
+/* Combined slides */
+.combined-slides {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.combined-slide {
+  text-align: center;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.combined-slide h3 {
+  font-size: 0.56em;
+  margin: 0 0 8px;
+  color: var(--teal);
+}
+
+.combined-slide img {
+  max-width: 100%;
+  max-height: 280px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
 @media (max-width: 1100px) {
   .cards.c2, .cards.c3, .grid-2 { grid-template-columns: 1fr; }
   .slide-shell, .chapter-shell { min-height: auto; }
@@ -313,6 +332,7 @@ html, body { background: var(--bg); }
   .process-flow { grid-template-columns: 1fr; }
   .process-arrow { display: none; }
   .process-tools { grid-template-columns: 1fr 1fr; }
+  .combined-slides { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -459,6 +479,28 @@ html, body { background: var(--bg); }
       <img src="../../assets/architecture.gif" alt="Архитектура системы" style="max-height: 450px;">
     </div>
     <p class="note">Анализ ошибки в цикле, принятие решений о вызове инструментов MCP</p>
+  </div>
+</section>
+
+<!-- Слайд 6.1: Объединённый слайд 7,8,9 -->
+<section>
+  <div class="slide-shell">
+    <img src="../../assets/logo.png" class="logo" alt="Logo">
+    <h2 class="section-title">Демонстрация работы</h2>
+    <div class="combined-slides">
+      <div class="combined-slide fragment">
+        <h3>Дашборд ошибок</h3>
+        <img src="../../assets/dashboard.png" alt="Дашборд">
+      </div>
+      <div class="combined-slide fragment">
+        <h3>Информация об ошибке</h3>
+        <img src="../../assets/error-info.png" alt="Ошибка">
+      </div>
+      <div class="combined-slide fragment">
+        <h3>Результаты пилота</h3>
+        <img src="../../assets/results.png" alt="Результаты">
+      </div>
+    </div>
   </div>
 </section>
 
