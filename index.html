@@ -10,7 +10,6 @@
 <style>
 :root {
   --bg: #080707;
-  --bg-soft: #12100f;
   --line: #3d322a;
   --text: #f8f0e4;
   --muted: #c7b095;
@@ -34,26 +33,12 @@ body {
   padding: 26px 18px;
 }
 
-.shell {
-  width: min(1120px, 100%);
-}
-
+.shell { width: min(1120px, 100%); }
 h1, h2, h3 { font-family: "Unbounded", "Manrope", sans-serif; margin: 0; }
 
-.head {
-  text-align: center;
-  margin-bottom: 18px;
-}
-
-.head h1 {
-  font-size: clamp(30px, 5vw, 52px);
-  margin-bottom: 8px;
-}
-
-.head p {
-  margin: 0;
-  color: var(--muted);
-}
+.head { text-align: center; margin-bottom: 18px; }
+.head h1 { font-size: clamp(30px, 5vw, 52px); margin-bottom: 8px; }
+.head p { margin: 0; color: var(--muted); }
 
 .card {
   border: 1px solid rgba(255,255,255,0.12);
@@ -61,24 +46,13 @@ h1, h2, h3 { font-family: "Unbounded", "Manrope", sans-serif; margin: 0; }
   border-radius: 16px;
   background: linear-gradient(145deg, rgba(31,24,20,0.92), rgba(20,16,13,0.96));
   padding: 20px;
+  margin-bottom: 16px;
 }
 
-.card h2 {
-  font-size: 22px;
-  margin-bottom: 8px;
-}
+.card h2 { font-size: 22px; margin-bottom: 8px; }
+.card p { margin: 0 0 16px; color: var(--muted); line-height: 1.5; }
 
-.card p {
-  margin: 0 0 16px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-.row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
 
 .btn {
   text-decoration: none;
@@ -111,6 +85,14 @@ h1, h2, h3 { font-family: "Unbounded", "Manrope", sans-serif; margin: 0; }
         <div class="row">
           <a class="btn" href="./presentations/main/">Открыть презентацию</a>
           <a class="btn secondary" href="./reading/main/">Читать конспект</a>
+        </div>
+      </article>
+
+      <article class="card" style="border-top-color: var(--amber)">
+        <h2>Исходный текст</h2>
+        <p>Markdown-версия презентации с полным описанием проблемы, решения, архитектуры и результатов.</p>
+        <div class="row">
+          <a class="btn secondary" href="./content/main.md">Открыть .md файл</a>
         </div>
       </article>
     </section>
